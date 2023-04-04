@@ -23,7 +23,9 @@ app.post("/signUp", (req, res) => {
   res.send("success");
 });
 app.get("/signUp", (req, res) => {
-  res.send("success 123");
+  res.json({
+    message: "this is res message success : >",
+  });
 });
 
 app.listen(port, () => {
