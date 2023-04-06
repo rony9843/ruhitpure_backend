@@ -1,33 +1,32 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const port = process.env.PORT || 8800;
+const signUpController = require("./controller/signUp.controller");
+const utilsConnect = require("./utils/utils");
+const connectDb = require("./db/db");
+const getUserController = require("./controller/getUser.controller");
 
 app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World!!!");
 });
 
-// app.post("/signUp", (req, res) => {
-//   console.log(req);
-//   res.send("successful");
-// });
+app.post("/signUp", signUpController);
 
-app.post("/signUp", (req, res) => {
-  console.log(req.body);
-  res.send("success");
-});
-app.get("/signUp", (req, res) => {
-  res.json({
-    message: "this is res message success : >",
-  });
-});
+app.get("/logIn", getUserController);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+// ? mongodb connect
+connectDb(utilsConnect.MongoDb)
+  .then(() => {
+    console.log("database connected");
+    // app lister
+    app.listen(utilsConnect.PORT, () => {
+      console.log(`server is running at ${utilsConnect.PORT}`);
+    });
+  })
+  .catch((e) => console.log(e));
