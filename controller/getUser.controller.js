@@ -32,20 +32,16 @@ const getUserController = async (req, res) => {
   // ? user found
   if (user.password === password) {
     console.log("inside match");
-    res
-      .send({
-        statusCode: 200,
-        user: user,
-      })
-      .status(200);
+    res.status(200).send({
+      statusCode: 200,
+      user: user,
+    });
   } else {
     console.log("inside not match");
-    res
-      .send({
-        statusCode: 403,
-        user: null,
-      })
-      .status(403);
+    res.status(403).send({
+      statusCode: 403,
+      user: null,
+    });
   }
 
   /**
