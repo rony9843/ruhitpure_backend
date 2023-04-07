@@ -6,13 +6,19 @@ const getUserController = async (req, res) => {
   const { phoneNumber, password } = req.body;
 
   // check primary phone number
-  let user = await User.findOne({ primaryPhoneNumber: phoneNumber });
+  let user = await User.findOne({
+    primaryPhoneNumber: phoneNumber,
+    password: password,
+  });
 
   console.log("user -> ", user, new Date());
 
   // ? if primary phone number not found
   if (!user) {
-    user = await User.findOne({ primaryPhoneNumber: phoneNumber });
+    user = await User.findOne({
+      SecondaryPhoneNumber: phoneNumber,
+      password: password,
+    });
   }
 
   // ? if user not found
@@ -24,12 +30,27 @@ const getUserController = async (req, res) => {
   }
 
   // ? user found
-  res
-    .send({
-      statusCode: user ? 200 : 404,
-      user: user,
-    })
-    .status(200);
+  if (user.password === password) {
+    res
+      .send({
+        statusCode: 200,
+        user: user,
+      })
+      .status(200);
+  } else {
+    res
+      .send({
+        statusCode: 200,
+        user: user,
+      })
+      .status(403);
+  }
+
+  /**
+   * ? 404 - not found
+   * ? 200 - found
+   * ? 403 - password not match
+   */
 };
 
 module.exports = getUserController;
