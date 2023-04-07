@@ -3,6 +3,7 @@ const { model, Schema } = require("mongoose");
 const userSchema = new Schema({
   name: String,
   primaryPhoneNumber: String,
+  SecondaryPhoneNumber: String,
   password: {
     type: String,
     // maxLength: [6, "password is too long"],

@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 app.post("/signUp", signUpController);
 
-app.get("/logIn", getUserController);
+app.post("/logIn", getUserController);
 
 // ? mongodb connect
 connectDb(utilsConnect.MongoDb)
