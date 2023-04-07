@@ -8,7 +8,6 @@ const getUserController = async (req, res) => {
   // check primary phone number
   let user = await User.findOne({
     primaryPhoneNumber: phoneNumber,
-    password: password,
   });
 
   console.log("user -> ", user, new Date());
@@ -17,7 +16,6 @@ const getUserController = async (req, res) => {
   if (!user) {
     user = await User.findOne({
       SecondaryPhoneNumber: phoneNumber,
-      password: password,
     });
   }
 
