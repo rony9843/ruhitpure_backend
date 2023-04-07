@@ -5,6 +5,8 @@ const getUserController = async (req, res) => {
 
   const { phoneNumber, password } = req.body;
 
+  console.log(phoneNumber, password);
+
   // check primary phone number
   let user = await User.findOne({
     primaryPhoneNumber: phoneNumber,
@@ -29,6 +31,7 @@ const getUserController = async (req, res) => {
 
   // ? user found
   if (user.password === password) {
+    console.log("inside match");
     res
       .send({
         statusCode: 200,
@@ -36,10 +39,11 @@ const getUserController = async (req, res) => {
       })
       .status(200);
   } else {
+    console.log("inside not match");
     res
       .send({
-        statusCode: 200,
-        user: user,
+        statusCode: 403,
+        user: null,
       })
       .status(403);
   }
