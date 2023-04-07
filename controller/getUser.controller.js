@@ -3,7 +3,7 @@ const User = require("../model/user.model");
 const getUserController = async (req, res) => {
   // const user = await User.findOne({ userId: req.query.userId });
 
-  const { phoneNumber, password } = req.body;
+  const { phoneNumber, password } = req.query;
 
   console.log(phoneNumber, password);
 
