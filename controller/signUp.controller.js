@@ -1,4 +1,5 @@
 const User = require("../model/user.model");
+const getUserByPhoneNumber = require("../services/getUserByPhoneNumber");
 
 const signUpController = async (req, res) => {
   console.log(req.body);
@@ -14,6 +15,14 @@ const signUpController = async (req, res) => {
     userId,
     createdTime,
   } = req.body;
+
+  const isExist = await getUserByPhoneNumber(primaryPhoneNumber);
+
+  if (isExist) {
+    return res.status(403).send({
+      message: "already exist",
+    });
+  }
 
   const user = new User({
     name,
