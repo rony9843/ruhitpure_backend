@@ -11,6 +11,7 @@ const getUserController = require("./controller/getUser.controller");
 const setCategoryController = require("./controller/setCategory.controller");
 const deleteCategory = require("./controller/deleteCategory.controller");
 const getCategory = require("./controller/getCategory.controller");
+const sendEmailController = require("./controller/sendEmail.controller");
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -28,6 +29,8 @@ app.get("/ ", getCategory);
 app.post("/setCategory", setCategoryController);
 
 app.post("/deleteCategory", deleteCategory);
+
+app.get("/emailSend", sendEmailController);
 
 // ? mongodb connect
 connectDb(utilsConnect.MongoDb)
